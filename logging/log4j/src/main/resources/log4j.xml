@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<!--******************************************************************************
+	* Log4j Configuration
+	*
+	* Logging levels (higest to lowest):
+	*   off, fatal, error, warn, info, debug, all
+	*
+	* A logging request is enabled if its level is
+	* higher than or equal to the level of its logger.
+	******************************************************************************-->
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+	<!-- ******************************************************************* -->
+	<!-- ConsoleAppender                                                     -->
+	<!-- ******************************************************************* -->
+	<appender name="ConsoleAppender" class="org.apache.log4j.ConsoleAppender">
+		<param name="Threshold" value="debug"/>
+
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{ISO8601} %-5p [%t] %c: %m%n"/>
+		</layout>
+	</appender>
+
+	<!-- ******************************************************************* -->
+	<!-- DailyRollingFileAppender                                            -->
+	<!-- ******************************************************************* -->
+	<appender name="DailyRollingFileAppender" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="datePattern" value="'.'yyyy-MM-dd_HH-mm"/>
+		<param name="file" value="logs/example.log"/>
+		<param name="Append" value="true"/>
+		
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{ISO8601} %-5p [%t] %c: %m%n"/>
+		</layout>
+	</appender>
+
+	<!-- ******************************************************************* -->
+	<!-- Low Level Loggers                                                   -->
+	<!-- ******************************************************************* -->
+	<logger name="karstenroethig.example.logging.core.package1">
+		<level value="debug"/>
+	</logger>
+	<logger name="karstenroethig.example.logging.core.package2">
+		<level value="info"/>
+	</logger>
+
+	<!-- ******************************************************************* -->
+	<!-- Root Logger                                                         -->
+	<!-- ******************************************************************* -->
+	<root>
+		<level value="warn"/>
+		<appender-ref ref="ConsoleAppender"/>
+		<appender-ref ref="DailyRollingFileAppender"/>
+	</root>
+
+</log4j:configuration>

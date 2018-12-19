@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>karstenroethig.examples</groupId>
+		<artifactId>example-logging-parent</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+
+	<artifactId>example-logging-logback</artifactId>
+	<packaging>jar</packaging>
+
+	<dependencies>
+
+		<!-- ******************************************************************* -->
+		<!-- SLF4J (Simple Logging Facade for Java)                              -->
+		<!-- ******************************************************************* -->
+		<!-- Binding for Simple implementation
+			 - outputs all events to System.err
+			 - only messages of level INFO and higher are printed -->
+		<!--
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-simple</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+		-->
+
+		<!-- JCL (Jakarta Commons Logging) redirected to SLF4J -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+		</dependency>
+
+		<!-- ******************************************************************* -->
+		<!-- Logback                                                             -->
+		<!-- ******************************************************************* -->
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+		</dependency>
+
+		<!-- ******************************************************************* -->
+		<!-- Modules                                                             -->
+		<!-- ******************************************************************* -->
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>example-logging-core</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+	</dependencies>
+</project>
