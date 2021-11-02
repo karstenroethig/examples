@@ -12,7 +12,12 @@ classloader
 logging
 -------
 * Logging
-** Logging API: [SLF4J](http://www.slf4j.org)
-** Logging Frameworks [Log4J](http://logging.apache.org/log4j) and [Logback](https://logback.qos.ch/)
+    * Logging API: [SLF4J](http://www.slf4j.org)
+    * Logging Frameworks [Log4J](http://logging.apache.org/log4j) and [Logback](https://logback.qos.ch/)
 * Others:
-** Maven multi-module project
+    * Maven multi-module project
+
+
+streams distinct by property
+----------------------------
+* TODO
