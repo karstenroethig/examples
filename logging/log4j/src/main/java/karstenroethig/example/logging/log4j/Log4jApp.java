@@ -8,8 +8,8 @@ public class Log4jApp
 {
 	public static void main(String[] args)
 	{
-		Integer i1 = new Integer(36);
-		Integer i2 = new Integer(56);
+		Integer i1 = 36;
+		Integer i2 = 56;
 
 		A a = new A();
 

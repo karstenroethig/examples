@@ -1,6 +1,8 @@
 package karstenroethig.example.classloader.app;
 
 import java.io.File;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLClassLoader;
@@ -38,25 +40,31 @@ public class ClassloaderApp
 		FooBarUtils.doSomething("app");
 	}
 
-	private static int getResult(File jarFile, String className) throws Exception
+	private static int getResult(File jarFile, String className)
+			throws ClassNotFoundException, IllegalAccessException, InstantiationException, IOException
 	{
-		URLClassLoader classLoader = URLClassLoader.newInstance(new URL[] {jarFile.toURI().toURL()});
-		Class<?> clazz = classLoader.loadClass(className);
-		Object instance = clazz.newInstance();
-		IFooBar foobar = (IFooBar) instance;
-		IResult result = foobar.foobar();
+		try (URLClassLoader classLoader = URLClassLoader.newInstance(new URL[] {jarFile.toURI().toURL()}))
+		{
+			Class<?> clazz = classLoader.loadClass(className);
+			Object instance = clazz.newInstance();
+			IFooBar foobar = (IFooBar) instance;
+			IResult result = foobar.foobar();
 
-		return result.getResult();
+			return result.getResult();
+		}
 	}
 
-	private static int getResult_(File jarFile, String className) throws Exception
+	private static int getResult_(File jarFile, String className)
+			throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InstantiationException, InvocationTargetException, IOException
 	{
-		URLClassLoader classLoader = URLClassLoader.newInstance(new URL[] {jarFile.toURI().toURL()});
-		Class<?> clazz = classLoader.loadClass(className);
-		Method method = clazz.getDeclaredMethod("foobar");
-		Object instance = clazz.newInstance();
-		Object result = method.invoke(instance);
+		try (URLClassLoader classLoader = URLClassLoader.newInstance(new URL[] {jarFile.toURI().toURL()}))
+		{
+			Class<?> clazz = classLoader.loadClass(className);
+			Method method = clazz.getDeclaredMethod("foobar");
+			Object instance = clazz.newInstance();
+			Object result = method.invoke(instance);
 
-		return ((IResult)result).getResult();
+			return ((IResult)result).getResult();
+		}
 	}
 }
