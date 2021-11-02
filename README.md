@@ -9,6 +9,11 @@ classloader
 * TODO
 
 
+generic cache
+-------------
+* TODO
+
+
 logging
 -------
 * Logging
