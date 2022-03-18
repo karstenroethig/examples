@@ -1,4 +1,4 @@
-package karstenroethig.examples.springbootauthjwt.books;
+package karstenroethig.examples.springbootauthjwt.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

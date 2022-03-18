@@ -1,0 +1,26 @@
+GET http://localhost:8080/books/public
+
+###
+
+POST http://localhost:8080/login
+Content-Type: application/json
+
+{
+	"username": "user",
+	"password": "password"
+}
+
+###
+
+GET http://localhost:8080/books/public
+
+###
+
+GET http://localhost:8080/books/private/user
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODA4MC9sb2dpbiIsImV4cCI6MTY0NzU5NjM2NCwiaWF0IjoxNjQ3NTk2MTI0fQ.V3QDba-vNSbQFVgMkOhZX931G_-krEymjXgkoTqjtX0
+
+###
+
+GET http://localhost:8080/books/private/admin
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODA4MC9sb2dpbiIsImV4cCI6MTY0NzU5NjM2NCwiaWF0IjoxNjQ3NTk2MTI0fQ.V3QDba-vNSbQFVgMkOhZX931G_-krEymjXgkoTqjtX0
+
