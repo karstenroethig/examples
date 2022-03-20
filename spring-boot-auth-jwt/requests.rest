@@ -1,0 +1,40 @@
+POST http://localhost:8080/login
+Content-Type: application/json
+
+{
+	"username": "user",
+	"password": "password"
+}
+
+###
+
+POST http://localhost:8080/token
+Content-Type: application/json
+
+{
+	"refreshToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODA4MC9sb2dpbiIsImV4cCI6MTY0ODAzODU4MiwiaWF0IjoxNjQ3Nzc5MzgyfQ._zb_UtbhHMePkmGqYLilaYmCu2fIdUg2OiMUaov-GoU"
+}
+
+###
+
+DELETE http://localhost:8080/invalidate
+Content-Type: application/json
+
+{
+	"refreshToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODA4MC9sb2dpbiIsImV4cCI6MTY0ODAzODU4MiwiaWF0IjoxNjQ3Nzc5MzgyfQ._zb_UtbhHMePkmGqYLilaYmCu2fIdUg2OiMUaov-GoU"
+}
+
+###
+
+GET http://localhost:8080/books/public
+
+###
+
+GET http://localhost:8080/books/private/user
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODA4MC90b2tlbiIsImV4cCI6MTY0Nzc3OTc1NCwiaWF0IjoxNjQ3Nzc5MTU0fQ.Z1-vMnEvRy69R9GjtWKBX1ZLHVQcHAsqlPpu-raNW9o
+
+###
+
+GET http://localhost:8080/books/private/admin
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODA4MC90b2tlbiIsImV4cCI6MTY0Nzc3OTc1NCwiaWF0IjoxNjQ3Nzc5MTU0fQ.Z1-vMnEvRy69R9GjtWKBX1ZLHVQcHAsqlPpu-raNW9o
+
