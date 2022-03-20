@@ -5,8 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class LoginRequest
+public class RefreshToken
 {
-	private String username;
-	private String password;
+	private String refreshToken;
 }

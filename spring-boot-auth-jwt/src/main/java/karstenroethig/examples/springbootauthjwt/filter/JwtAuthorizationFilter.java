@@ -17,14 +17,14 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import karstenroethig.examples.springbootauthjwt.service.JwtTokenService;
+import karstenroethig.examples.springbootauthjwt.service.TokenService;
 
 @Component
 public class JwtAuthorizationFilter extends OncePerRequestFilter
 {
 	public static final String BEARER_TOKEN_PREFIX = "Bearer ";
 
-	@Autowired private JwtTokenService jwtTokenService;
+	@Autowired private TokenService tokenService;
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -36,7 +36,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter
 			try
 			{
 				UsernamePasswordAuthenticationToken authenticationToken
-						= jwtTokenService.convertAccessTokenToAuthorizationToken(token.get());
+						= tokenService.convertAccessTokenToAuthorizationToken(token.get());
 				SecurityContextHolder.getContext().setAuthentication(authenticationToken);
 			}
 			catch (Exception ex)

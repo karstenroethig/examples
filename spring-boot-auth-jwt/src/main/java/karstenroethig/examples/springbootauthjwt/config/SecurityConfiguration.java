@@ -52,7 +52,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
 		.and()
 			.addFilterBefore(jwtAuthorizationFilterBean(), UsernamePasswordAuthenticationFilter.class)
 			.authorizeRequests()
-			.antMatchers("/login", "/error").permitAll()
+			.antMatchers(
+					"/login",
+					"/token",
+					"/invalidate",
+					"/error").permitAll()
 			.antMatchers("/books/public").permitAll()
 			.antMatchers("/books/private/user").hasAnyAuthority("ROLE_USER")
 			.antMatchers("/books/private/admin").hasAnyAuthority("ROLE_ADMIN")
