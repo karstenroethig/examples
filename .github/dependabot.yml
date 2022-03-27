@@ -35,6 +35,15 @@ updates:
     rebase-strategy: "disabled"
 
   - package-ecosystem: "maven"
+    directory: "/spring-boot-auth-jwt/"
+    target-branch: "master"
+    schedule:
+      interval: "daily"
+      time: "01:00"
+      timezone: "Europe/Berlin"
+    rebase-strategy: "disabled"
+
+  - package-ecosystem: "maven"
     directory: "/streams-distinct-by-property/"
     target-branch: "master"
     schedule:
