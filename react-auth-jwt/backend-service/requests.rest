@@ -1,0 +1,29 @@
+POST http://localhost:8080/login
+Content-Type: application/json
+
+{
+	"username": "Mike"
+}
+
+###
+
+POST http://localhost:8080/token
+Content-Type: application/json
+
+{
+	"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiS3lsZSIsImlhdCI6MTY0ODU4NzY4N30.VoK4pAEZMsPMc3K3Hu0JTdeMN0ezb7ffjzbt85s0YXo"
+}
+
+###
+
+DELETE http://localhost:8080/logout
+Content-Type: application/json
+
+{
+	"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiS3lsZSIsImlhdCI6MTY0ODU4NzY4N30.VoK4pAEZMsPMc3K3Hu0JTdeMN0ezb7ffjzbt85s0YXo"
+}
+
+###
+
+GET http://localhost:8080/posts
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiTWlrZSIsImlhdCI6MTY1MjYxNjg5MywiZXhwIjoxNjUyNjE3MTMzfQ.diKaB2rP5MXvW9SdgEk1rsSvEpdBJ-cmpksplNx_xnI
