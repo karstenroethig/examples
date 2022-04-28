@@ -17,7 +17,16 @@ updates:
     rebase-strategy: "disabled"
 
   - package-ecosystem: "maven"
-    directory: "/generic-code/"
+    directory: "/generic-cache/"
+    target-branch: "master"
+    schedule:
+      interval: "daily"
+      time: "01:00"
+      timezone: "Europe/Berlin"
+    rebase-strategy: "disabled"
+
+  - package-ecosystem: "maven"
+    directory: "/jaxb/"
     target-branch: "master"
     schedule:
       interval: "daily"
