@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<jxb:bindings version="2.0"
+	xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
+	xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	jxb:extensionBindingPrefixes="xjc">
+
+	<jxb:globalBindings>
+		<xjc:simple/>
+		<xjc:serializable uid="1"/>
+		<xjc:javaType xmlType="xs:integer"  name="java.lang.Integer"       adapter="karstenroethig.examples.jaxb.adapters.IntegerAdapter"/>
+		<xjc:javaType xmlType="xs:long"     name="java.lang.Long"          adapter="karstenroethig.examples.jaxb.adapters.LongAdapter"/>
+		<xjc:javaType xmlType="xs:date"     name="java.time.LocalDate"     adapter="karstenroethig.examples.jaxb.adapters.LocalDateAdapter"/>
+		<xjc:javaType xmlType="xs:dateTime" name="java.time.LocalDateTime" adapter="karstenroethig.examples.jaxb.adapters.LocalDateTimeAdapter"/>
+	</jxb:globalBindings>
+
+</jxb:bindings>

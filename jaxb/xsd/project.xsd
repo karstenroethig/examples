@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+	<xs:element name="project">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="issues" minOccurs="1" maxOccurs="1"/>
+			</xs:sequence>
+			<xs:attribute name="name" type="xs:string" use="required"/>
+			<xs:attribute name="key"  type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="issues">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="issue" type="issue" minOccurs="1" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="comments">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="comment" type="comment" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:complexType name="issue">
+		<xs:sequence>
+			<xs:element name="description"    type="xs:string"    minOccurs="0" maxOccurs="1"/>
+			<xs:element ref="comments"                            minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+		<xs:attribute name="id"              type="xs:long"     use="required"/>
+		<xs:attribute name="title"           type="xs:string"   use="required"/>
+		<xs:attribute name="createdDatetime" type="xs:dateTime" use="required"/>
+		<xs:attribute name="dueDate"         type="xs:date"     use="optional"/>
+	</xs:complexType>
+
+	<xs:complexType name="comment">
+		<xs:sequence>
+			<xs:element name="text" type="xs:string" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+		<xs:attribute name="id"              type="xs:long"     use="required"/>
+		<xs:attribute name="createdDatetime" type="xs:dateTime" use="required"/>
+		<xs:attribute name="deleted"         type="xs:boolean"  use="optional" default="false"/>
+	</xs:complexType>
+
+</xs:schema>

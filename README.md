@@ -13,6 +13,12 @@ some example projects
 * TODO
 
 
+## jaxb
+
+* code generation from xsd schema
+* write (marshal) / read (unmarshal)
+
+
 ## logging
 
 * Logging
