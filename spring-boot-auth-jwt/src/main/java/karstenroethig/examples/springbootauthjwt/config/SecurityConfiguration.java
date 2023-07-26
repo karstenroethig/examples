@@ -3,21 +3,33 @@ package karstenroethig.examples.springbootauthjwt.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import karstenroethig.examples.springbootauthjwt.filter.JwtAuthorizationFilter;
 
 @Configuration
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter
+public class SecurityConfiguration
 {
 	@Bean
-	@Override
-	public AuthenticationManager authenticationManagerBean() throws Exception {
-		return super.authenticationManagerBean();
+	public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception
+	{
+		return config.getAuthenticationManager();
+	}
+
+	@Bean
+	public PasswordEncoder passwordEncoder()
+	{
+		return PasswordEncoderFactories.createDelegatingPasswordEncoder();
 	}
 
 	@Bean
@@ -26,40 +38,53 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
 		return new JwtAuthorizationFilter();
 	}
 
-	@Override
-	protected void configure(AuthenticationManagerBuilder auth) throws Exception
+	@Bean
+	public UserDetailsService userDetailsService()
 	{
-		auth.inMemoryAuthentication()
-				.withUser("user")
-				.password("{noop}password")
-				.roles("USER")
-			.and()
-				.withUser("admin")
-				.password("{noop}password")
-				.roles("USER", "ADMIN");
+		UserDetails user = User
+			.withUsername("user")
+			.password("{noop}password")
+			.roles("USER")
+			.build();
+		UserDetails admin = User
+			.withUsername("admin")
+			.password("{noop}password")
+			.roles("USER", "PASSWORD")
+			.build();
+		return new InMemoryUserDetailsManager(user, admin);
 	}
 
-	@Override
-	protected void configure(HttpSecurity http) throws Exception
+	@Bean
+	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception
 	{
 		http
-			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-		.and()
-			.csrf().disable()
-			.headers()
-				.frameOptions().disable()
-				.cacheControl().disable()
-		.and()
+			.sessionManagement((sessionManagement) -> sessionManagement
+				.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+			)
+			.csrf((csrf) -> csrf
+				.disable() // deactivate Cross Site Request Forgery (CSRF), otherwise it is annoying with REST requests
+			)
+			.headers((headers) -> headers
+				.frameOptions((frameOptions) -> frameOptions.disable())
+				.cacheControl((cacheControl) -> cacheControl.disable())
+			)
 			.addFilterBefore(jwtAuthorizationFilterBean(), UsernamePasswordAuthenticationFilter.class)
-			.authorizeRequests()
-			.antMatchers(
+			.authorizeHttpRequests((authorizeHttpRequests) -> authorizeHttpRequests
+				// take care of order, if a condition applies no further rules will be checked
+				.requestMatchers(
 					"/login",
 					"/token",
 					"/invalidate",
-					"/error").permitAll()
-			.antMatchers("/books/public").permitAll()
-			.antMatchers("/books/private/user").hasAnyAuthority("ROLE_USER")
-			.antMatchers("/books/private/admin").hasAnyAuthority("ROLE_ADMIN")
-			.anyRequest().authenticated();
+					"/error",
+					"/books/public").permitAll()
+				.requestMatchers(
+					"/books/private/user").hasAnyAuthority("ROLE_USER")
+				.requestMatchers(
+					"/books/private/admin").hasAnyAuthority("ROLE_ADMIN")
+				.anyRequest()
+					.authenticated()
+			);
+
+		return http.build();
 	}
 }

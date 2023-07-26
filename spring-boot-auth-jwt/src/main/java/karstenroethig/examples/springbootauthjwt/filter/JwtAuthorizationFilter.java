@@ -3,10 +3,10 @@ package karstenroethig.examples.springbootauthjwt.filter;
 import java.io.IOException;
 import java.util.Optional;
 
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ import karstenroethig.examples.springbootauthjwt.service.TokenService;
 @Component
 public class JwtAuthorizationFilter extends OncePerRequestFilter
 {
-	public static final String BEARER_TOKEN_PREFIX = "Bearer ";
+	private static final String BEARER_TOKEN_PREFIX = "Bearer ";
 
 	@Autowired private TokenService tokenService;
 
@@ -47,6 +47,12 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter
 		}
 
 		filterChain.doFilter(request, response);
+	}
+
+	protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException
+	{
+		// do not filter if the user is already authenticated
+		return SecurityContextHolder.getContext().getAuthentication() != null;
 	}
 
 	private Optional<String> getJwtFromRequest(HttpServletRequest request)
